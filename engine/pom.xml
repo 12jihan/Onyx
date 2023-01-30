@@ -20,13 +20,13 @@
     <lwjgl.version>3.3.1</lwjgl.version>
     <joml.version>1.10.4</joml.version>
     <!-- Mac arm users uncomment this section. -->
-    <lwjgl.natives>natives-macos-arm64</lwjgl.natives>
+    <!-- <lwjgl.natives>natives-macos-arm64</lwjgl.natives> -->
 
     <!-- Windows users uncomment this section. -->
     <!-- <lwjgl.natives>natives-windows</lwjgl.natives> -->
 
     <!-- Linux users uncomment this section. -->
-    <!-- <lwjgl.natives>natives-linux</lwjgl.natives> -->
+    <lwjgl.natives>natives-linux</lwjgl.natives>
   </properties>
 
   <dependencyManagement>

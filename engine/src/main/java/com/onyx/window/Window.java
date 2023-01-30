@@ -8,7 +8,6 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
-
 import java.io.IOException;
 
 public class Window {
@@ -16,34 +15,33 @@ public class Window {
     private String Title;
 
     // The window handle
-	private long window = NULL;
+    private long Window = NULL;
 
-    Window(int width, int height, String title) {
-        Width = width;
-        Height = height;
-        Title = title;
+    public Window(int width, int height, String title) {
+        this.Width = width;
+        this.Height = height;
+        this.setWindowTitle(title);
     }
 
-    Window() {
+    public Window() {
         this(1280, 720, "Default Title");
     }
+
+    ~
+
+    Window() {
+
+    };
 
     public void createWindow() {
         System.out.println("Hello LWJGL" + Version.getVersion() + "!");
 
         init();
         loop();
-
-        // Free the window callbacks and destroy the window
-        glfwFreeCallbacks(glfwWindow);
-        glfwDestroyWindow(glfwWindow);
-
-        // Terminate GLFW and the free the error callback
-        glfwTerminate();
-        glfwSetErrorCallback(null).free();
-    }
+    };
 
     public void init() {
+        get
         // Setup and error callback:
         GLFWErrorCallback.createPrint(System.err).set();
 
@@ -53,16 +51,19 @@ public class Window {
         };
 
         // Configure GLFW:
-        glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
         // Create the window:
-        glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
-        if (glfwWindow == NULL) {
+        setWindow(GLFW_NO_WINDOW_CONTEXT);
+        setWindow(glfwCreateWindow(this.Width, this.Height, this.Title, NULL, NULL));
+        if (this.Window == NULL) {
             throw new IllegalStateException("Failed to create the GLFW window...");
-        }
+        };
+        
 
         // glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
         // glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
@@ -84,4 +85,56 @@ public class Window {
         // bindings available for use.
         GL.createCapabilities();
     }
+
+    // Getters and setters for Window:
+    // ----------------------------------------------------------------
+
+    // Set window Width and Height
+    private void setWindowSize(int width, int height) {
+        this.Width = width;
+        this.Height = height;
+    };
+
+    // Get window Width and Height
+    private int[] getWindowSize() {
+        return new int[] {
+                this.Width,
+                this.Height
+        };
+    };
+
+    // Set the title
+    public void setWindowTitle(String title) {
+        this.Title = title;
+    };
+
+    // Access title
+    public String getWindowTitle() {
+        return this.Title;
+    };
+
+    // Set the window
+    public void setWindow(long window) {
+        this.Window = window;
+    };
+
+    // Get the current window
+    public long getWindow() {
+        return this.Window;
+    };
+
+    // finalize() for Window:
+    // ----------------------------------------------------------------
+    protected void finalize() {
+        // Free the window callbacks and destroy the window
+        glfwFreeCallbacks(this.Window);
+        glfwDestroyWindow(this.Window);
+
+        // Terminate GLFW and the free the error callback
+        glfwTerminate();
+        glfwSetErrorCallback(null).free();
+
+        // Print exit message:
+        System.out.println("Program Finished!");
+    };
 }
