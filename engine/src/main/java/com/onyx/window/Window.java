@@ -2,13 +2,18 @@ package com.onyx.window;
 
 import org.lwjgl.*;
 // import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
-import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
+// import org.lwjgl.opengl.*;
+import org.lwjgl.system.*;
 import org.lwjgl.glfw.GLFWErrorCallback;
+
+// import java.io.IOException;
+import java.nio.*;
+
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
-import java.io.IOException;
 
 public class Window {
     private int Width, Height;
@@ -18,37 +23,27 @@ public class Window {
     private long Window = NULL;
 
     public Window(int width, int height, String title) {
-        this.Width = width;
-        this.Height = height;
+        this.setWindowSize(width, height);
         this.setWindowTitle(title);
-    }
+    };
 
     public Window() {
         this(1280, 720, "Default Title");
-    }
-
-    ~
-
-    Window() {
-
     };
 
     public void createWindow() {
         System.out.println("Hello LWJGL" + Version.getVersion() + "!");
-
         init();
-        loop();
     };
 
     public void init() {
-        get
-        // Setup and error callback:
-        GLFWErrorCallback.createPrint(System.err).set();
+        // Setup an error callback. The default implementation
+		// will print the error message in System.err.
+		GLFWErrorCallback.createPrint(System.err).set();
 
         // Initialize GLFW:
-        if (!glfwInit()) {
+        if (!glfwInit())
             throw new IllegalStateException("Unable to initialize GLFW...");
-        };
 
         // Configure GLFW:
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -58,33 +53,35 @@ public class Window {
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
         // Create the window:
-        setWindow(GLFW_NO_WINDOW_CONTEXT);
         setWindow(glfwCreateWindow(this.Width, this.Height, this.Title, NULL, NULL));
-        if (this.Window == NULL) {
+        if (this.Window == NULL)
             throw new IllegalStateException("Failed to create the GLFW window...");
-        };
+
+        // Setup a key callback. It will be called every time a key is pressed, repeated or released.
+		glfwSetKeyCallback(this.Window, (window, key, scancode, action, mods) -> {
+			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
+				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
+		});
         
 
-        // glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
-        // glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
-        // glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
-        // glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+        // Get the thread stack and push a new frame
+		try ( MemoryStack stack = stackPush() ) {
+			IntBuffer pWidth = stack.mallocInt(1); // int*
+			IntBuffer pHeight = stack.mallocInt(1); // int*
 
-        // Make the opengl context current:
-        glfwMakeContextCurrent(glfwWindow);
-        // Enable v-sync:
-        glfwSwapInterval(1);
+			// Get the window size passed to glfwCreateWindow
+			glfwGetWindowSize(this.Window, pWidth, pHeight);
 
-        // Make the window visible:
-        glfwShowWindow(glfwWindow);
+		} // the stack frame is popped automatically
 
-        // This line is critical for LWJGL's interoperation with GLFW's
-        // OpenGL context, or any context that is managed externally.
-        // LWJGL detects the context that is current in the current thread,
-        // creates the GLCapabilities instance and makes the OpenGL
-        // bindings available for use.
-        GL.createCapabilities();
-    }
+		// Make the OpenGL context current
+		glfwMakeContextCurrent(this.Window);
+		// Enable v-sync
+		glfwSwapInterval(1);
+
+		// Make the window visible
+		glfwShowWindow(this.Window);
+    };
 
     // Getters and setters for Window:
     // ----------------------------------------------------------------
@@ -96,12 +93,12 @@ public class Window {
     };
 
     // Get window Width and Height
-    private int[] getWindowSize() {
-        return new int[] {
-                this.Width,
-                this.Height
-        };
-    };
+    // private int[] getWindowSize() {
+    //     return new int[] {
+    //             this.Width,
+    //             this.Height
+    //     };
+    // };
 
     // Set the title
     public void setWindowTitle(String title) {
