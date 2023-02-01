@@ -13,17 +13,15 @@ import com.onyx.rawmodel.RawModel;
 
 public class App {
     static Window window = new Window(1280, 720, "Java Sandbox");
-    static Loader loader = new Loader();
-    static Renderer renderer = new Renderer();
+    // static Loader loader = new Loader();
+    // static Renderer renderer = new Renderer();
     
     public static void main(String[] args) {
         
-        GLFWErrorCallback.createPrint(System.err).set();
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
         
         window.init();
         // render.prepare();
-        glfwMakeContextCurrent(window.getWindow());
         
         // ------------------------------------------------------------------------------------------------
         
@@ -38,9 +36,9 @@ public class App {
             0.5f, 0.5f, 0f,
             -0.5f, 0.5f, 0f,
         };
-        RawModel model = loader.loadToVAO(vertices);
+        // RawModel model = loader.loadToVAO(vertices);
         // ------------------------------------------------------------------------------------------------
-        GL.createCapabilities();
+        
         while (!glfwWindowShouldClose(window.getWindow())) {
 
             // renderer.prepare();
@@ -58,7 +56,8 @@ public class App {
             glfwPollEvents();
         }
         ;
-        loader.cleanUp();
+        window.kill();
+        // loader.cleanUp();
 
     };
 
