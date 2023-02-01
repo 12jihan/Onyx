@@ -7,7 +7,6 @@ import org.lwjgl.system.*;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GLCapabilities;
 
 // import java.io.IOException;
 import java.nio.*;
