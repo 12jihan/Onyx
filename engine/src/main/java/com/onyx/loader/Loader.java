@@ -28,10 +28,10 @@ public class Loader {
     public void cleanUp() {
         for(int vao:vaos) {
             GL30.glDeleteVertexArrays(vao);
-        }
+        };
         for(int vbo:vbos) {
             GL15.glDeleteBuffers(vbo);
-        }
+        };
     };
 
     private int createVAO() {

@@ -56,7 +56,7 @@ public class Window {
         setWindow(glfwCreateWindow(this.Width, this.Height, this.Title, NULL, NULL));
         if (this.Window == NULL)
             throw new IllegalStateException("Failed to create the GLFW window...");
-
+        // glfwMakeContextCurrent(this.getWindow());
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
 		glfwSetKeyCallback(this.Window, (window, key, scancode, action, mods) -> {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
@@ -93,12 +93,6 @@ public class Window {
     };
 
     // Get window Width and Height
-    // private int[] getWindowSize() {
-    //     return new int[] {
-    //             this.Width,
-    //             this.Height
-    //     };
-    // };
 
     // Set the title
     public void setWindowTitle(String title) {
