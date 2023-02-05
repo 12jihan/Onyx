@@ -21,11 +21,12 @@ public class Window {
     
     private int width, height;
     private long window;
+
     private boolean vSync, resize;
 
     private final Matrix4f projectionMatrix;
 
-    public Window(int width, int height, String title, boolean vSync) {
+    public Window(String title, int width, int height, boolean vSync) {
         this.title = title;
         this.width = width;
         this.height = height;
@@ -34,11 +35,10 @@ public class Window {
     };
 
     public Window() {
-        this(1280, 720, "Default Title", false);
+        this("SandBox Engine", 1280, 720,  false);
     };
 
     public void init() {
-        System.out.println("Hello LWJGL" + Version.getVersion() + "!");
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit())
@@ -78,7 +78,7 @@ public class Window {
         if (maximized) {
             glfwMaximizeWindow(window);
         } else {
-            GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+            GLFWVidMode vidMode = glfwGetVideoMode(1);
             glfwSetWindowPos(window, (vidMode.width() - width) / 2, (vidMode.height() - height) / 2);
         }
 
@@ -156,7 +156,7 @@ public class Window {
 
     public Matrix4f updateProjectionMatrix(Matrix4f matrix, int width, int height) {
         float aspectRatio = (float) width / height;
-        return projectionMatrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
+        return matrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
     }
 
 
