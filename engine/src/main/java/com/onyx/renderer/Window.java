@@ -1,4 +1,4 @@
-package com.onyx.window;
+package com.onyx.renderer;
 
 import org.lwjgl.*;
 // import org.lwjgl.glfw.*;
@@ -53,7 +53,8 @@ public class Window {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
         // Create the window:
-        this.Window = glfwCreateWindow(this.Width, this.Height, this.Title, NULL, NULL);
+        this.Window = glfwCreateWindow(this.Width, this.Height, this.Title, 0, 0);
+        System.out.println("window id: \n\n\t" + this.Window);
         if (this.Window == NULL)
             throw new RuntimeException("Failed to create the GLFW window...");
         // glfwMakeContextCurrent(this.getWindow());
@@ -80,6 +81,7 @@ public class Window {
                     this.Window,
                     (vidmode.width() - pWidth.get(0)) / 2,
                     (vidmode.height() - pHeight.get(0)) / 2);
+            glfwShowWindow(this.Window);
         } // the stack frame is popped automatically
 
         // Make the OpenGL context current
@@ -124,6 +126,7 @@ public class Window {
 
     // Get the current window
     public long getWindow() {
+        // System.out.println("getting the window: \n\n\t" + this.Window + "\n");
         return this.Window;
     };
 

@@ -6,10 +6,6 @@ import org.lwjgl.opengl.*;
 // import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-// import com.onyx.loader.*;
-import com.onyx.rawmodel.RawModel;
-// import com.onyx.window.*;
-
 public class Renderer {
 
     // static Window window = new Window(1280, 720, "Java Sandbox");
@@ -27,7 +23,8 @@ public class Renderer {
     // };
 
     public void prepare() {
-        glClearColor(0.15f, 0.17f, 0.20f, 1.0f);
+        GL11.glClear(GL_COLOR_BUFFER_BIT);
+        GL11.glClearColor(1, 0, 0, 1);
     };
 
     public void render(RawModel model) {

@@ -1,4 +1,4 @@
-package com.onyx.rawmodel;
+package com.onyx.renderer;
 
 public class RawModel {
     private int vaoID;

@@ -1,7 +1,8 @@
-package com.onyx.loader;
+package com.onyx.renderer;
 
 import java.nio.FloatBuffer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -9,7 +10,12 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import com.onyx.rawmodel.*;
+
+/**
+ * Handles the loading of geometry data into VAOs. It also keeps track of all
+ * the created VAOs and VBOs so that they can all be deleted when the game
+ * closes.
+ */
 
 public class Loader {
 
@@ -18,6 +24,7 @@ public class Loader {
 
 
     public RawModel loadToVAO(float[] positions) {
+        System.out.println("Positions: \n\t" + positions + "\n");
         int vaoID = createVAO();
         storeDataInAttributeList(0, positions);
         unbindVAO();
@@ -37,6 +44,7 @@ public class Loader {
     private int createVAO() {
         int vaoID = GL30.glGenVertexArrays();
         vaos.add(vaoID);
+        System.out.println("binding vertex array..." + vaoID);
         GL30.glBindVertexArray(vaoID);
 
         return vaoID;
@@ -45,23 +53,28 @@ public class Loader {
     private void storeDataInAttributeList(int attributeNumber, float[] data) {
         int vboID = GL15.glGenBuffers();
         vbos.add(vboID);
-        System.out.println("This is vbo data: " + vboID);
+        System.out.println("Bounding to vbo with id: " + vboID);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboID);
-        FloatBuffer buffer = storeDataInAttributeList(data);
+        System.out.println("Buffer has been created...");
+        FloatBuffer buffer = storeDataInFloatBuffer(data);
+        System.out.println("Stored buffer data...");
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
         GL20.glVertexAttribPointer(attributeNumber, 3, GL11.GL_FLOAT, false, 0, 0);
+        System.out.println("Unbinding bufferd data..." + vboID);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     };
 
     private void unbindVAO() {
+        System.out.println("Unibinding vertex array...");
         GL30.glBindVertexArray(0);
     };
 
-    private FloatBuffer storeDataInAttributeList(float[] data) {
+    private FloatBuffer storeDataInFloatBuffer(float[] data) {
         FloatBuffer buffer = BufferUtils.createFloatBuffer(data.length);
+        System.out.println("Buffer length created: " + data.length);
         buffer.put(data);
+        System.out.println("Flipping data...");
         buffer.flip();
-
         return buffer;
     }
 }
