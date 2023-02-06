@@ -1,6 +1,9 @@
+com/onyx/renderer/EngineManager.class
+com/onyx/utils/Consts.class
 com/onyx/renderer/Window.class
 com/onyx/utils/Time.class
 com/onyx/renderer/Loader.class
 com/onyx/renderer/RawModel.class
 com/onyx/renderer/Renderer.class
 com/onyx/App.class
+com/onyx/ILogic.class

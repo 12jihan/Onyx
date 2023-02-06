@@ -2,11 +2,7 @@ package com.onyx.renderer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-
-import java.nio.Buffer;
-
 import org.lwjgl.system.*;
-import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;

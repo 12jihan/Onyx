@@ -1,13 +1,6 @@
 package com.onyx.renderer;
-
-// import org.lwjgl.*;
-// import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.*;
-
 import com.onyx.App;
-
-// import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
 
 public class Renderer {
     private final Window window;

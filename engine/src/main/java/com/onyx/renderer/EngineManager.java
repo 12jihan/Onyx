@@ -23,7 +23,9 @@ public class EngineManager {
     private void init() throws Exception {
         GLFW.glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
         window = App.getWindow();
+        gameLogic = App.getGame();
         window.init();
+        gameLogic.init();
     }
 
     public void start() throws Exception {
