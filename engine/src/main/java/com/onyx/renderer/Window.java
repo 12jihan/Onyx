@@ -116,7 +116,7 @@ public class Window {
         return glfwGetKey(window, keycode) == GLFW_PRESS;
     }
 
-    public boolean windowShouldCLose() {
+    public boolean windowShouldClose() {
         return glfwWindowShouldClose(window);
     }
 

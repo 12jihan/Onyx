@@ -5,21 +5,27 @@ import org.lwjgl.Version;
 import org.lwjgl.opengl.GL;
 
 import com.onyx.renderer.*;
+import com.onyx.utils.Consts;
 
 public class App {
     // static Loader loader = new Loader();
     // static Renderer renderer = new Renderer();
+    private static Window window;
+    private static EngineManager engine;
 
     public static void main(String[] args) {
-        Window window = new Window("Java Sandbox", 1600, 900, false);
-        System.out.println("Hello LWJGL " + Version.getVersion() + "!");
-        window.init();
+        window = new Window(Consts.TITLE, 1600, 900, false);
+        engine = new EngineManager();
 
-        while (!window.windowShouldCLose()) {
-            window.update();
+        try {
+            engine.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        window.cleanup();
+    };
 
+    public static Window getWindow() {
+        return window;
     };
 
 };
