@@ -5,6 +5,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import com.onyx.App;
+import com.onyx.ILogic;
 
 public class EngineManager {
     public static final long NANOSECOND = 1000000000L;
@@ -17,6 +18,7 @@ public class EngineManager {
 
     private Window window;
     private GLFWErrorCallback errorCallback;
+    private ILogic gameLogic;
 
     private void init() throws Exception {
         GLFW.glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
@@ -82,18 +84,20 @@ public class EngineManager {
     }
 
     private void input() {
-
+        gameLogic.input();
     }
 
     private void render() {
+        gameLogic.render();
         window.update();
     }
 
     private void update() {
-
+        gameLogic.update();
     }
 
     private void cleanup() {
+        gameLogic.cleanup();
         window.cleanup();
         errorCallback.free();
         GLFW.glfwTerminate();
