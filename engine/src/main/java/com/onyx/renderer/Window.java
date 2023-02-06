@@ -3,7 +3,10 @@ package com.onyx.renderer;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+import java.nio.Buffer;
+
 import org.lwjgl.system.*;
+import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -33,9 +36,9 @@ public class Window {
         projectionMatrix = new Matrix4f();
     };
 
-    public Window() {
-        this("SandBox Engine", 1280, 720,  false);
-    };
+    // public Window() {
+    //     this("SandBox Engine", 1280, 720,  false);
+    // };
 
     public void init() {
         GLFWErrorCallback.createPrint(System.err).set();
@@ -78,7 +81,7 @@ public class Window {
             glfwMaximizeWindow(window);
         } 
         else {
-            GLFWVidMode vidMode = glfwGetVideoMode(1);
+            GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
             glfwSetWindowPos(window, (vidMode.width() - width) / 2, (vidMode.height() - height) / 2);
         }
 
