@@ -3,7 +3,6 @@ package com.onyx.renderer;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-import org.lwjgl.*;
 import org.lwjgl.system.*;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -32,7 +31,6 @@ public class Window {
         this.height = height;
         this.vSync = vSync;
         projectionMatrix = new Matrix4f();
-        System.out.println("getting the monitors: \n" + glfwGetMonitors());
     };
 
     public Window() {
@@ -78,7 +76,8 @@ public class Window {
 
         if (maximized) {
             glfwMaximizeWindow(window);
-        } else {
+        } 
+        else {
             GLFWVidMode vidMode = glfwGetVideoMode(1);
             glfwSetWindowPos(window, (vidMode.width() - width) / 2, (vidMode.height() - height) / 2);
         }
