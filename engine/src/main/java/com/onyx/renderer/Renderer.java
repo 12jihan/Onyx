@@ -1,6 +1,8 @@
 package com.onyx.renderer;
+
 import org.lwjgl.opengl.*;
 import com.onyx.App;
+import com.onyx.Entity.Model;
 
 public class Renderer {
     private final Window window;
@@ -13,8 +15,13 @@ public class Renderer {
 
     }
 
-    public void render() {
-
+    public void render(Model model) {
+        clear();
+        GL30.glBindVertexArray(model.getId());
+        GL20.glEnableVertexAttribArray(0);
+        GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.getVertexCount());
+        GL20.glDisableVertexAttribArray(0);
+        GL30.glBindVertexArray(0);
     }
 
     public void clear() {
@@ -23,6 +30,6 @@ public class Renderer {
     }
 
     public void cleanup() {
-        
+
     }
 }
