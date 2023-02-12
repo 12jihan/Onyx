@@ -14,8 +14,8 @@ public class Renderer {
 
     public void init() throws Exception {
         shader = new ShaderManager();
-        shader.createVertexShader(Utils.loadResource("/shaders/vertex.vs"));
-        shader.createFragmentShader(Utils.loadResource("/shaders/fragment.fs"));
+        shader.createVertexShader(Utils.loadResource("../resources/shaders/vertex.vs"));
+        shader.createFragmentShader(Utils.loadResource("../resources/shaders/fragment.fs"));
         shader.link();
     }
 
@@ -32,7 +32,6 @@ public class Renderer {
 
     public void clear() {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        // GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     }
 
     public void cleanup() {
