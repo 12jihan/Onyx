@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL11;
 import com.onyx.App;
 import com.onyx.ILogic;
 import com.onyx.Entity.Model;
+import com.onyx.Entity.Texture;
 import com.onyx.renderer.ObjectLoader;
 import com.onyx.renderer.Renderer;
 import com.onyx.renderer.Window;
@@ -32,12 +33,10 @@ public class SandBox implements ILogic {
         renderer.init();
 
         float[] vertices = {
-                -0.5f, 0.5f, 0f,
-                -0.5f, -0.5f, 0f,
-                0.5f, -0.5f, 0f,
-                0.5f, -0.5f, 0f,
-                0.5f, 0.5f, 0f,
-                -0.5f, 0.5f, 0f
+            -0.5f,  0.5f, 0f,
+            -0.5f, -0.5f, 0f,
+             0.5f, -0.5f, 0f,
+             0.5f,  0.5f, 0f,
         };
 
         int[] indices = {
@@ -45,7 +44,16 @@ public class SandBox implements ILogic {
             3,1,2
         };
         
-        model = loader.loadModel(vertices, indices);
+
+        float[] textureCoords = {
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+        };
+
+        model = loader.loadModel(vertices, textureCoords, indices);
+        model.setTexture(new Texture(loader.loadTexture("textures/block/grass_block_snow.png")));
     }
 
     @Override
