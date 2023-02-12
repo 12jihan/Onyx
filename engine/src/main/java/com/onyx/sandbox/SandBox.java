@@ -1,10 +1,13 @@
 package com.onyx.sandbox;
 
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import com.onyx.App;
 import com.onyx.ILogic;
+import com.onyx.Entity.Entity;
 import com.onyx.Entity.Model;
 import com.onyx.Entity.Texture;
 import com.onyx.renderer.ObjectLoader;
@@ -20,7 +23,7 @@ public class SandBox implements ILogic {
     private final ObjectLoader loader;
     private final Window window;
 
-    private Model model;
+    private Entity entity;
 
     public SandBox() {
         renderer = new Renderer();
@@ -52,8 +55,9 @@ public class SandBox implements ILogic {
             1,0,
         };
 
-        model = loader.loadModel(vertices, textureCoords, indices);
+        Model model = loader.loadModel(vertices, textureCoords, indices);
         model.setTexture(new Texture(loader.loadTexture("textures/block/grass_block_snow.png")));
+        entity = new Entity(model, new Vector3f(1, 0, 0), new Vector3f(0, 0, 0), 1);
     }
 
     @Override
@@ -75,6 +79,9 @@ public class SandBox implements ILogic {
         else if (color <= 0)
             color = 0.0f;
 
+        if(entity.getPos().x < -1.5f) 
+            entity.getPos().x = 1.5f;
+        entity.getPos().x -= 0.01f; 
     }
 
     @Override
@@ -85,7 +92,7 @@ public class SandBox implements ILogic {
         }
 
         window.setClearColor(color, color, color, 0.0f);
-        renderer.render(model);
+        renderer.render(entity);
 
     }
 
