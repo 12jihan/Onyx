@@ -21,6 +21,8 @@ public class Renderer {
 
     public void init() throws Exception {
         shader = new ShaderManager();
+        System.out.println("This is vertex: \n" + Utils.loadResource("../resources/shaders/vertex.vs"));
+        System.out.println("This is fragment: \n" + Utils.loadResource("../resources/shaders/fragment.fs"));
         shader.createVertexShader(Utils.loadResource("../resources/shaders/vertex.vs"));
         shader.createFragmentShader(Utils.loadResource("../resources/shaders/fragment.fs"));
         shader.link();

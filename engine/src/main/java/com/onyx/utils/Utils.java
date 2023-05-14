@@ -27,7 +27,8 @@ public class Utils {
         try(
             InputStream in = Utils.class.getResourceAsStream(filename);
             Scanner scanner = new Scanner(in, StandardCharsets.UTF_8.name())) {
-            result = scanner.useDelimiter("\\A").next();
+                result = scanner.useDelimiter("\\A").next();
+                System.out.println("result: \n" + result);
         }
         return result;
     }
