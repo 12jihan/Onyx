@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.onyx.App;
 import com.onyx.Camera;
-import com.onyx.ILogic;
+import com.onyx.IAppLogic;
 import com.onyx.Entity.Entity;
 import com.onyx.Entity.Model;
 import com.onyx.Entity.Texture;
@@ -14,7 +14,7 @@ import com.onyx.renderer.ObjectLoader;
 import com.onyx.renderer.Renderer;
 import com.onyx.renderer.Window;
 
-public class SandBox implements ILogic {
+public class SandBox implements IAppLogic {
 
     private static final float CAMERA_MOVEMENT_SPEED = 0.05f;
 

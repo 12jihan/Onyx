@@ -1,6 +1,6 @@
 package com.onyx;
 
-public interface ILogic {
+public interface IAppLogic {
     
     
     void init() throws Exception;
